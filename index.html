@@ -1,244 +1,445 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
 
 <title>Reseñas</title>
 
+
 <style>
+
+/* =========================================
+   CONFIGURACIÓN GENERAL
+========================================= */
 
 * {
   box-sizing: border-box;
 }
 
+
 html,
 body {
+
   margin: 0;
   padding: 0;
   width: 100%;
+
 }
+
 
 body {
-  font-family: Arial, sans-serif;
-  background: transparent;
-  color: #333333;
+
+  font-family:
+    Arial,
+    sans-serif;
+
+  background:
+    transparent;
+
+  color:
+    #333333;
+
 }
+
+
+/* =========================================
+   CONTENEDOR
+========================================= */
 
 .contenedor {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 10px;
+
+  max-width:
+    1000px;
+
+  margin:
+    0 auto;
+
+  padding:
+    10px;
+
 }
+
+
+/* =========================================
+   CABECERA
+========================================= */
 
 .cabecera {
-  text-align: center;
-  margin-bottom: 30px;
+
+  text-align:
+    center;
+
+  margin-bottom:
+    30px;
+
 }
+
 
 .titulo {
-  font-size: 30px;
-  font-weight: 600;
-  margin-bottom: 10px;
+
+  font-size:
+    30px;
+
+  font-weight:
+    600;
+
+  margin-bottom:
+    10px;
+
+  color:
+    #333333;
+
 }
+
 
 .estrellas-general {
-  font-size: 25px;
-  letter-spacing: 2px;
+
+  font-size:
+    25px;
+
+  letter-spacing:
+    2px;
+
 }
+
 
 .media {
-  font-size: 22px;
-  margin-top: 6px;
+
+  font-size:
+    22px;
+
+  margin-top:
+    6px;
+
 }
+
 
 .numero {
-  font-size: 15px;
-  margin-top: 5px;
+
+  font-size:
+    15px;
+
+  margin-top:
+    5px;
+
+  color:
+    #777777;
+
 }
+
+
+/* =========================================
+   GRID
+========================================= */
 
 .grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 18px;
+
+  display:
+    grid;
+
+  grid-template-columns:
+    repeat(
+      auto-fit,
+      minmax(
+        280px,
+        1fr
+      )
+    );
+
+  gap:
+    18px;
+
 }
+
+
+/* =========================================
+   TARJETA DE RESEÑA
+========================================= */
 
 .testimonio {
-  background: #ffffff;
-  border-radius: 16px;
-  padding: 22px;
-  box-shadow: 0 3px 14px rgba(0, 0, 0, 0.08);
+
+  background:
+    #ffffff;
+
+  border-radius:
+    16px;
+
+  padding:
+    22px;
+
+  box-shadow:
+    0 3px 14px
+    rgba(
+      0,
+      0,
+      0,
+      0.08
+    );
+
 }
+
 
 .estrellas {
-  font-size: 20px;
-  letter-spacing: 2px;
-  margin-bottom: 12px;
+
+  font-size:
+    20px;
+
+  letter-spacing:
+    2px;
+
+  margin-bottom:
+    12px;
+
 }
+
 
 .comentario {
-  font-size: 16px;
-  line-height: 1.6;
-  margin-bottom: 14px;
-  color: #333333;
+
+  font-size:
+    16px;
+
+  line-height:
+    1.6;
+
+  margin-bottom:
+    14px;
+
+  color:
+    #333333;
+
 }
+
 
 .nombre {
-  font-weight: 600;
-  color: #555555;
+
+  font-weight:
+    600;
+
+  color:
+    #555555;
+
 }
+
 
 .categoria {
-  font-size: 13px;
-  color: #888888;
-  margin-top: 8px;
+
+  font-size:
+    13px;
+
+  color:
+    #888888;
+
+  margin-top:
+    8px;
+
 }
+
+
+/* =========================================
+   MENSAJE DE ERROR / CARGANDO
+========================================= */
 
 .error {
-  text-align: center;
-  padding: 30px;
-  color: #777777;
+
+  text-align:
+    center;
+
+  padding:
+    30px;
+
+  color:
+    #777777;
+
 }
 
 
-/* MÓVIL */
+/* =========================================
+   MÓVIL
+========================================= */
 
-@media (max-width: 600px) {
+@media (
+  max-width: 600px
+) {
 
   .contenedor {
-    padding: 8px;
+
+    padding:
+      8px;
+
   }
+
 
   .titulo {
-    font-size: 24px;
+
+    font-size:
+      24px;
+
   }
+
 
   .estrellas-general {
-    font-size: 22px;
+
+    font-size:
+      22px;
+
   }
+
 
   .media {
-    font-size: 20px;
+
+    font-size:
+      20px;
+
   }
+
 
   .grid {
-    grid-template-columns: 1fr;
-    gap: 14px;
+
+    grid-template-columns:
+      1fr;
+
+    gap:
+      14px;
+
   }
+
 
   .testimonio {
-    padding: 18px;
+
+    padding:
+      18px;
+
   }
 
+
   .comentario {
-    font-size: 15px;
+
+    font-size:
+      15px;
+
   }
 
 }
 
 </style>
+
 </head>
 
 
 <body>
 
+
 <div class="contenedor">
+
+
+  <!-- =====================================
+       CABECERA
+  ====================================== -->
 
   <div class="cabecera">
 
-    <div class="titulo" id="titulo">
+
+    <div
+      class="titulo"
+      id="titulo"
+    >
+
       Lo que opinan nuestros clientes
+
     </div>
+
 
     <div class="estrellas-general">
+
       ⭐⭐⭐⭐⭐
+
     </div>
+
 
     <div class="media">
-      <strong id="media">0.0/5</strong>
+
+      <strong id="media">
+
+        0.0/5
+
+      </strong>
+
     </div>
+
 
     <div class="numero">
-      Basado en <span id="numero">0</span> valoraciones
+
+      Basado en
+
+      <span id="numero">
+        0
+      </span>
+
+      valoraciones
+
     </div>
+
 
   </div>
 
 
-  <div class="grid" id="resenas">
+  <!-- =====================================
+       RESEÑAS
+  ====================================== -->
+
+  <div
+    class="grid"
+    id="resenas"
+  >
 
     <div class="error">
+
       Cargando reseñas...
+
     </div>
 
   </div>
 
+
 </div>
+
 
 
 <script>
 
 
-/*
-==================================================
- GOOGLE SHEETS
-==================================================
-*/
+/* =========================================
+   URL DE TU APPS SCRIPT
+========================================= */
 
-const HOJA =
-"https://docs.google.com/spreadsheets/d/e/2PACX-1vRjxbXueZ1ecWXJn3Vcd56peGCHbWfQvp63HVlfNAcqi6N8HUrjR7wJtEMhnF4LeP9ilyirZdYxlZZn/pub?gid=161688174&single=true";
+const APPS_SCRIPT =
+"https://script.google.com/macros/s/AKfycbyoQ4P_RLWjYbX8ma2i4aioGzyfss5pY2aCRK2pjQy59Y_rz3OFna9Hf7ZAdsd1ODkTgg/exec";
 
 
-/*
-==================================================
- CATEGORÍA
-==================================================
-
- Si no ponemos categoría:
-
-     todas
-
- Si ponemos:
-
-     ?categoria=Respira%20el%20verano
-
- mostrará solamente esa categoría.
-
-==================================================
-*/
+/* =========================================
+   CATEGORÍA SOLICITADA
+========================================= */
 
 const parametros =
-new URLSearchParams(window.location.search);
+new URLSearchParams(
+  window.location.search
+);
+
 
 const categoriaSolicitada =
 parametros.get("categoria") || "todas";
 
 
-/*
-==================================================
- COLORES
-==================================================
-*/
-
-if (categoriaSolicitada !== "todas") {
-
-  document.getElementById("titulo").style.color =
-    "#333333";
-
-  document.querySelector(".media").style.color =
-    "#333333";
-
-  document.querySelector(".numero").style.color =
-    "#777777";
-
-}
-
-
-/*
-==================================================
- ESCAPAR HTML
-==================================================
-*/
+/* =========================================
+   ESCAPAR HTML
+========================================= */
 
 function escapar(texto) {
 
@@ -253,498 +454,208 @@ function escapar(texto) {
 }
 
 
-/*
-==================================================
- CARGAR RESEÑAS
-==================================================
-*/
+/* =========================================
+   FUNCIÓN QUE RECIBIRÁ LAS RESEÑAS
+========================================= */
 
-async function cargarResenas() {
-
-  try {
-
-    /*
-     * Pedimos a Google Sheets la hoja
-     * publicada en formato CSV.
-     */
-
-    const url =
-      HOJA +
-      "&output=csv";
+window.reseñasCallback =
+function(datos) {
 
 
-    const respuesta =
-      await fetch(url);
+  console.log(
+    "Datos recibidos:",
+    datos
+  );
 
 
-    if (!respuesta.ok) {
+  /* ---------------------------------------
+     COMPROBAR ERROR
+  --------------------------------------- */
 
-      throw new Error(
-        "No se pudo acceder a Google Sheets"
-      );
-
-    }
-
-
-    const texto =
-      await respuesta.text();
-
-
-    console.log(
-      "Google Sheets cargado correctamente"
-    );
-
-
-    const filas =
-      parseCSV(texto);
-
-
-    mostrarResenas(filas);
-
-  }
-
-
-  catch (error) {
+  if (
+    !datos ||
+    datos.error
+  ) {
 
     console.error(
-      "Error cargando reseñas:",
-      error
+      "Error recibido:",
+      datos
     );
 
 
-    document.getElementById("resenas").innerHTML = `
+    mostrarError();
 
-      <div class="error">
-
-        No se han podido cargar las reseñas.
-
-      </div>
-
-    `;
+    return;
 
   }
+
+
+  /* ---------------------------------------
+     OBTENER RESEÑAS
+  --------------------------------------- */
+
+  const resenas =
+    datos.resenas || [];
+
+
+  mostrarResenas(
+    resenas
+  );
+
+};
+
+
+/* =========================================
+   MOSTRAR ERROR
+========================================= */
+
+function mostrarError() {
+
+  document.getElementById(
+    "resenas"
+  ).innerHTML = `
+
+    <div class="error">
+
+      No se han podido cargar
+      las reseñas.
+
+    </div>
+
+  `;
 
 }
 
 
-/*
-==================================================
- CONVERTIR CSV
-==================================================
-*/
+/* =========================================
+   MOSTRAR RESEÑAS
+========================================= */
 
-function parseCSV(texto) {
-
-  const filas = [];
-
-  let fila = [];
-
-  let campo = "";
-
-  let dentroComillas = false;
+function mostrarResenas(
+  resenas
+) {
 
 
-  for (
-    let i = 0;
-    i < texto.length;
-    i++
-  ) {
+  /* ---------------------------------------
+     CONTENEDOR
+  --------------------------------------- */
 
-    const caracter =
-      texto[i];
-
-    const siguiente =
-      texto[i + 1];
+  const contenedor =
+    document.getElementById(
+      "resenas"
+    );
 
 
-    /*
-     * Comillas dobles dentro de un campo.
-     */
-
-    if (
-      caracter === '"' &&
-      dentroComillas &&
-      siguiente === '"'
-    ) {
-
-      campo += '"';
-
-      i++;
-
-      continue;
-
-    }
+  contenedor.innerHTML =
+    "";
 
 
-    /*
-     * Abrir o cerrar comillas.
-     */
+  /* ---------------------------------------
+     FILTRAR CATEGORÍA
+     
+     El Apps Script ya filtra por categoría,
+     pero mantenemos este filtro como
+     seguridad adicional.
+  --------------------------------------- */
 
-    if (
-      caracter === '"'
-    ) {
+  let resenasFiltradas =
+    resenas;
 
-      dentroComillas =
-        !dentroComillas;
-
-      continue;
-
-    }
-
-
-    /*
-     * Separador de columnas.
-     */
-
-    if (
-      caracter === ',' &&
-      !dentroComillas
-    ) {
-
-      fila.push(campo);
-
-      campo = "";
-
-      continue;
-
-    }
-
-
-    /*
-     * Fin de línea.
-     */
-
-    if (
-      (
-        caracter === '\n' ||
-        caracter === '\r'
-      ) &&
-      !dentroComillas
-    ) {
-
-      if (
-        caracter === '\r' &&
-        siguiente === '\n'
-      ) {
-
-        i++;
-
-      }
-
-
-      fila.push(campo);
-
-      campo = "";
-
-
-      if (
-        fila.length > 1
-      ) {
-
-        filas.push(fila);
-
-      }
-
-
-      fila = [];
-
-      continue;
-
-    }
-
-
-    campo += caracter;
-
-  }
-
-
-  /*
-   * Último campo.
-
-   */
 
   if (
-    campo ||
-    fila.length
+    categoriaSolicitada !==
+    "todas"
   ) {
 
-    fila.push(campo);
+    resenasFiltradas =
+      resenas.filter(
+        function(resena) {
 
-    filas.push(fila);
+          return (
+            String(
+              resena.categoria || ""
+            ).trim()
+            ===
+            categoriaSolicitada
+          );
 
-  }
-
-
-  return filas;
-
-}
-
-
-/*
-==================================================
- MOSTRAR RESEÑAS
-==================================================
-*/
-
-function mostrarResenas(filas) {
-
-
-  /*
-   * Comprobar que tenemos datos.
-   */
-
-  if (
-    !filas ||
-    filas.length < 2
-  ) {
-
-    throw new Error(
-      "No hay datos en Google Sheets"
-    );
-
-  }
-
-
-  /*
-   * Primera fila = encabezados.
-   */
-
-  const encabezados =
-    filas[0].map(
-      x => x.trim()
-    );
-
-
-  /*
-   * Buscar columnas.
-   */
-
-  const nombreCol =
-    encabezados.indexOf(
-      "Nombre"
-    );
-
-
-  const valoracionCol =
-    encabezados.indexOf(
-      "Valoración"
-    );
-
-
-  const experienciaCol =
-    encabezados.indexOf(
-      "Cuéntanos tu experiencia"
-    );
-
-
-  const categoriaCol =
-    encabezados.indexOf(
-      "CATEGORÍA"
-    );
-
-
-  /*
-   * Comprobar columnas.
-   */
-
-  if (
-    nombreCol === -1 ||
-    valoracionCol === -1 ||
-    experienciaCol === -1 ||
-    categoriaCol === -1
-  ) {
-
-    console.error(
-      "Columnas encontradas:",
-      encabezados
-    );
-
-
-    throw new Error(
-      "No se encuentran las columnas necesarias"
-    );
-
-  }
-
-
-  /*
-   * Array de reseñas.
-   */
-
-  const resenas = [];
-
-
-  /*
-   * Recorrer filas.
-   */
-
-  for (
-    let i = 1;
-    i < filas.length;
-    i++
-  ) {
-
-    const fila =
-      filas[i];
-
-
-    /*
-     * Categoría.
-     */
-
-    const categoria =
-      (fila[categoriaCol] || "")
-      .trim();
-
-
-    /*
-     * Filtrar por categoría
-     * cuando se solicita una.
-     */
-
-    if (
-      categoriaSolicitada !== "todas" &&
-      categoria !== categoriaSolicitada
-    ) {
-
-      continue;
-
-    }
-
-
-    /*
-     * Valoración.
-     */
-
-    const valoracionTexto =
-      (fila[valoracionCol] || "")
-      .trim()
-      .replace(",", ".");
-
-
-    const valoracion =
-      Number(
-        valoracionTexto
+        }
       );
 
-
-    /*
-     * Experiencia.
-     */
-
-    const experiencia =
-      (fila[experienciaCol] || "")
-      .trim();
-
-
-    /*
-     * Ignorar filas incorrectas.
-     */
-
-    if (
-      !experiencia ||
-      valoracion < 1 ||
-      valoracion > 5
-    ) {
-
-      continue;
-
-    }
-
-
-    /*
-     * Guardar reseña.
-     */
-
-    resenas.push({
-
-      nombre:
-        (fila[nombreCol] || "Cliente")
-        .trim(),
-
-      valoracion:
-        valoracion,
-
-      experiencia:
-        experiencia,
-
-      categoria:
-        categoria || "Reseñas"
-
-    });
-
   }
 
 
-  /*
-   * Número total.
-   */
+  /* ---------------------------------------
+     TOTAL
+  --------------------------------------- */
 
   const total =
-    resenas.length;
+    resenasFiltradas.length;
 
 
-  /*
-   * Calcular suma.
-   */
+  /* ---------------------------------------
+     CALCULAR MEDIA
+  --------------------------------------- */
 
-  let suma = 0;
+  let suma =
+    0;
 
 
-  resenas.forEach(
-    resena => {
+  resenasFiltradas.forEach(
+    function(resena) {
 
       suma +=
-        resena.valoracion;
+        Number(
+          resena.valoracion
+        );
 
     }
   );
 
 
-  /*
-   * Calcular media.
-   */
-
-  const media =
-    total
-      ? (suma / total).toFixed(1)
-      : "0.0";
+  let media =
+    "0.0";
 
 
-  /*
-   * Mostrar media.
-   */
+  if (
+    total > 0
+  ) {
 
-  document.getElementById("media")
-    .textContent =
+    media =
+      (
+        suma / total
+      ).toFixed(1);
+
+  }
+
+
+  /* ---------------------------------------
+     MOSTRAR MEDIA
+  --------------------------------------- */
+
+  document.getElementById(
+    "media"
+  ).textContent =
     media + "/5";
 
 
-  /*
-   * Mostrar número de valoraciones.
-   */
+  /* ---------------------------------------
+     MOSTRAR NÚMERO
+  --------------------------------------- */
 
-  document.getElementById("numero")
-    .textContent =
+  document.getElementById(
+    "numero"
+  ).textContent =
     total;
 
 
-  /*
-   * Contenedor de reseñas.
-   */
+  /* ---------------------------------------
+     SI NO HAY RESEÑAS
+  --------------------------------------- */
 
-  const contenedor =
-    document.getElementById("resenas");
-
-
-  contenedor.innerHTML = "";
-
-
-  /*
-   * Si no hay reseñas.
-   */
-
-  if (!total) {
+  if (
+    total === 0
+  ) {
 
     contenedor.innerHTML = `
 
@@ -762,19 +673,26 @@ function mostrarResenas(filas) {
   }
 
 
-  /*
-   * Crear las tarjetas.
-   */
+  /* ---------------------------------------
+     CREAR CADA RESEÑA
+  --------------------------------------- */
 
-  resenas.forEach(
-    resena => {
+  resenasFiltradas.forEach(
+    function(resena) {
 
 
-      /*
-       * Crear estrellas.
-       */
+      /* -----------------------------------
+         ESTRELLAS
+      ----------------------------------- */
 
-      let estrellas = "";
+      let estrellas =
+        "";
+
+
+      const valoracion =
+        Number(
+          resena.valoracion
+        );
 
 
       for (
@@ -784,23 +702,24 @@ function mostrarResenas(filas) {
       ) {
 
         estrellas +=
-          i <= resena.valoracion
+          i <= valoracion
             ? "⭐"
             : "☆";
 
       }
 
 
-      /*
-       * Mostrar categoría
-       * solamente en la página general.
-       */
+      /* -----------------------------------
+         CATEGORÍA
+      ----------------------------------- */
 
-      let categoriaHTML = "";
+      let categoriaHTML =
+        "";
 
 
       if (
-        categoriaSolicitada === "todas"
+        categoriaSolicitada ===
+        "todas"
       ) {
 
         categoriaHTML = `
@@ -808,7 +727,8 @@ function mostrarResenas(filas) {
           <div class="categoria">
 
             ${escapar(
-              resena.categoria
+              resena.categoria ||
+              "Reseñas"
             )}
 
           </div>
@@ -818,13 +738,14 @@ function mostrarResenas(filas) {
       }
 
 
-      /*
-       * Crear tarjeta.
-       */
+      /* -----------------------------------
+         TARJETA
+      ----------------------------------- */
 
       contenedor.innerHTML += `
 
         <div class="testimonio">
+
 
           <div class="estrellas">
 
@@ -832,23 +753,29 @@ function mostrarResenas(filas) {
 
           </div>
 
+
           <div class="comentario">
 
             "${escapar(
-              resena.experiencia
+              resena.experiencia ||
+              ""
             )}"
 
           </div>
 
+
           <div class="nombre">
 
             — ${escapar(
-              resena.nombre
+              resena.nombre ||
+              "Cliente"
             )}
 
           </div>
 
+
           ${categoriaHTML}
+
 
         </div>
 
@@ -860,16 +787,121 @@ function mostrarResenas(filas) {
 }
 
 
-/*
-==================================================
- INICIAR
-==================================================
-*/
+/* =========================================
+   CARGAR DATOS MEDIANTE JSONP
+========================================= */
+
+function cargarResenas() {
+
+
+  /*
+   * Creamos dinámicamente un <script>.
+   *
+   * Esto es importante:
+   *
+   * NO utilizamos fetch().
+   *
+   * De esta forma evitamos el problema
+   * de CORS que estaba provocando que
+   * algunos dispositivos no cargasen
+   * las reseñas.
+   */
+
+
+  const script =
+    document.createElement(
+      "script"
+    );
+
+
+  /* ---------------------------------------
+     URL DE DATOS
+  --------------------------------------- */
+
+  let url =
+    APPS_SCRIPT +
+    "?datos=1";
+
+
+  /* ---------------------------------------
+     CATEGORÍA
+  --------------------------------------- */
+
+  if (
+    categoriaSolicitada !==
+    "todas"
+  ) {
+
+    url +=
+      "&categoria=" +
+      encodeURIComponent(
+        categoriaSolicitada
+      );
+
+  }
+
+
+  /* ---------------------------------------
+     EVITAR CACHÉ
+  --------------------------------------- */
+
+  url +=
+    "&t=" +
+    Date.now();
+
+
+  /* ---------------------------------------
+     DIRECCIÓN DEL SCRIPT
+  --------------------------------------- */
+
+  script.src =
+    url;
+
+
+  script.async =
+    true;
+
+
+  /* ---------------------------------------
+     ERROR
+  --------------------------------------- */
+
+  script.onerror =
+    function() {
+
+      console.error(
+        "No se pudo conectar con Apps Script."
+      );
+
+
+      mostrarError();
+
+    };
+
+
+  /* ---------------------------------------
+     AÑADIR SCRIPT A LA PÁGINA
+  --------------------------------------- */
+
+  document
+    .body
+    .appendChild(
+      script
+    );
+
+}
+
+
+/* =========================================
+   INICIAR
+========================================= */
 
 cargarResenas();
 
 
 </script>
 
+
 </body>
+
 </html>
