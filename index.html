@@ -160,7 +160,7 @@ body {
 
 
 /* =========================================
-   TARJETA DE RESEÑA
+   TARJETAS
 ========================================= */
 
 .testimonio {
@@ -243,7 +243,7 @@ body {
 
 
 /* =========================================
-   MENSAJE DE ERROR / CARGANDO
+   ERROR
 ========================================= */
 
 .error {
@@ -339,9 +339,7 @@ body {
 <div class="contenedor">
 
 
-  <!-- =====================================
-       CABECERA
-  ====================================== -->
+  <!-- CABECERA -->
 
   <div class="cabecera">
 
@@ -390,9 +388,7 @@ body {
   </div>
 
 
-  <!-- =====================================
-       RESEÑAS
-  ====================================== -->
+  <!-- RESEÑAS -->
 
   <div
     class="grid"
@@ -416,15 +412,21 @@ body {
 
 
 /* =========================================
-   URL DE TU APPS SCRIPT
+   APPS SCRIPT
 ========================================= */
 
+/*
+ * ESTA ES LA NUEVA IMPLEMENTACIÓN.
+ *
+ * NO CAMBIAR.
+ */
+
 const APPS_SCRIPT =
-"https://script.google.com/macros/s/AKfycbyoQ4P_RLWjYbX8ma2i4aioGzyfss5pY2aCRK2pjQy59Y_rz3OFna9Hf7ZAdsd1ODkTgg/exec";
+"https://script.google.com/macros/s/AKfycbws4fDg8WdoySnNBpMmhAqECnEnuBr3pubAmIYr7uhqR_HrqvAPETF2gB_fkgYos_8h6g/exec";
 
 
 /* =========================================
-   CATEGORÍA SOLICITADA
+   CATEGORÍA
 ========================================= */
 
 const parametros =
@@ -455,7 +457,7 @@ function escapar(texto) {
 
 
 /* =========================================
-   FUNCIÓN QUE RECIBIRÁ LAS RESEÑAS
+   CALLBACK JSONP
 ========================================= */
 
 window.reseñasCallback =
@@ -463,14 +465,10 @@ function(datos) {
 
 
   console.log(
-    "Datos recibidos:",
+    "Datos recibidos de Apps Script:",
     datos
   );
 
-
-  /* ---------------------------------------
-     COMPROBAR ERROR
-  --------------------------------------- */
 
   if (
     !datos ||
@@ -478,10 +476,9 @@ function(datos) {
   ) {
 
     console.error(
-      "Error recibido:",
+      "Apps Script devolvió un error:",
       datos
     );
-
 
     mostrarError();
 
@@ -490,12 +487,12 @@ function(datos) {
   }
 
 
-  /* ---------------------------------------
-     OBTENER RESEÑAS
-  --------------------------------------- */
-
   const resenas =
-    datos.resenas || [];
+    Array.isArray(
+      datos.resenas
+    )
+      ? datos.resenas
+      : [];
 
 
   mostrarResenas(
@@ -536,10 +533,6 @@ function mostrarResenas(
 ) {
 
 
-  /* ---------------------------------------
-     CONTENEDOR
-  --------------------------------------- */
-
   const contenedor =
     document.getElementById(
       "resenas"
@@ -550,13 +543,9 @@ function mostrarResenas(
     "";
 
 
-  /* ---------------------------------------
-     FILTRAR CATEGORÍA
-     
-     El Apps Script ya filtra por categoría,
-     pero mantenemos este filtro como
-     seguridad adicional.
-  --------------------------------------- */
+  /*
+   * Filtrado adicional por categoría.
+   */
 
   let resenasFiltradas =
     resenas;
@@ -585,17 +574,17 @@ function mostrarResenas(
   }
 
 
-  /* ---------------------------------------
+  /* =====================================
      TOTAL
-  --------------------------------------- */
+  ===================================== */
 
   const total =
     resenasFiltradas.length;
 
 
-  /* ---------------------------------------
-     CALCULAR MEDIA
-  --------------------------------------- */
+  /* =====================================
+     MEDIA
+  ===================================== */
 
   let suma =
     0;
@@ -629,19 +618,11 @@ function mostrarResenas(
   }
 
 
-  /* ---------------------------------------
-     MOSTRAR MEDIA
-  --------------------------------------- */
-
   document.getElementById(
     "media"
   ).textContent =
     media + "/5";
 
-
-  /* ---------------------------------------
-     MOSTRAR NÚMERO
-  --------------------------------------- */
 
   document.getElementById(
     "numero"
@@ -649,9 +630,9 @@ function mostrarResenas(
     total;
 
 
-  /* ---------------------------------------
-     SI NO HAY RESEÑAS
-  --------------------------------------- */
+  /* =====================================
+     SIN RESEÑAS
+  ===================================== */
 
   if (
     total === 0
@@ -673,26 +654,22 @@ function mostrarResenas(
   }
 
 
-  /* ---------------------------------------
-     CREAR CADA RESEÑA
-  --------------------------------------- */
+  /* =====================================
+     CREAR TARJETAS
+  ===================================== */
 
   resenasFiltradas.forEach(
     function(resena) {
-
-
-      /* -----------------------------------
-         ESTRELLAS
-      ----------------------------------- */
-
-      let estrellas =
-        "";
 
 
       const valoracion =
         Number(
           resena.valoracion
         );
+
+
+      let estrellas =
+        "";
 
 
       for (
@@ -709,9 +686,9 @@ function mostrarResenas(
       }
 
 
-      /* -----------------------------------
+      /* ---------------------------------
          CATEGORÍA
-      ----------------------------------- */
+      --------------------------------- */
 
       let categoriaHTML =
         "";
@@ -738,9 +715,9 @@ function mostrarResenas(
       }
 
 
-      /* -----------------------------------
+      /* ---------------------------------
          TARJETA
-      ----------------------------------- */
+      --------------------------------- */
 
       contenedor.innerHTML += `
 
@@ -788,23 +765,25 @@ function mostrarResenas(
 
 
 /* =========================================
-   CARGAR DATOS MEDIANTE JSONP
+   CARGAR RESEÑAS
 ========================================= */
 
 function cargarResenas() {
 
 
   /*
-   * Creamos dinámicamente un <script>.
+   * IMPORTANTE:
    *
-   * Esto es importante:
+   * NO usamos fetch().
    *
-   * NO utilizamos fetch().
+   * Utilizamos JSONP mediante un
+   * elemento <script>.
    *
-   * De esta forma evitamos el problema
-   * de CORS que estaba provocando que
-   * algunos dispositivos no cargasen
-   * las reseñas.
+   * De esta forma GitHub Pages
+   * puede solicitar los datos a
+   * Apps Script sin depender de
+   * CORS ni de las cookies del
+   * visitante.
    */
 
 
@@ -815,7 +794,7 @@ function cargarResenas() {
 
 
   /* ---------------------------------------
-     URL DE DATOS
+     CREAR URL
   --------------------------------------- */
 
   let url =
@@ -851,7 +830,7 @@ function cargarResenas() {
 
 
   /* ---------------------------------------
-     DIRECCIÓN DEL SCRIPT
+     URL DEL SCRIPT
   --------------------------------------- */
 
   script.src =
@@ -880,7 +859,7 @@ function cargarResenas() {
 
 
   /* ---------------------------------------
-     AÑADIR SCRIPT A LA PÁGINA
+     INSERTAR
   --------------------------------------- */
 
   document
