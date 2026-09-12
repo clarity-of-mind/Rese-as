@@ -12,27 +12,18 @@
 
 <title>Reseñas</title>
 
-
 <style>
-
-/* =========================================
-   CONFIGURACIÓN GENERAL
-========================================= */
 
 * {
   box-sizing: border-box;
 }
 
-
 html,
 body {
-
   margin: 0;
   padding: 0;
   width: 100%;
-
 }
-
 
 body {
 
@@ -48,11 +39,6 @@ body {
 
 }
 
-
-/* =========================================
-   CONTENEDOR
-========================================= */
-
 .contenedor {
 
   max-width:
@@ -66,11 +52,6 @@ body {
 
 }
 
-
-/* =========================================
-   CABECERA
-========================================= */
-
 .cabecera {
 
   text-align:
@@ -80,7 +61,6 @@ body {
     30px;
 
 }
-
 
 .titulo {
 
@@ -93,11 +73,7 @@ body {
   margin-bottom:
     10px;
 
-  color:
-    #333333;
-
 }
-
 
 .estrellas-general {
 
@@ -109,7 +85,6 @@ body {
 
 }
 
-
 .media {
 
   font-size:
@@ -119,7 +94,6 @@ body {
     6px;
 
 }
-
 
 .numero {
 
@@ -133,11 +107,6 @@ body {
     #777777;
 
 }
-
-
-/* =========================================
-   GRID
-========================================= */
 
 .grid {
 
@@ -157,11 +126,6 @@ body {
     18px;
 
 }
-
-
-/* =========================================
-   TARJETAS
-========================================= */
 
 .testimonio {
 
@@ -185,7 +149,6 @@ body {
 
 }
 
-
 .estrellas {
 
   font-size:
@@ -198,7 +161,6 @@ body {
     12px;
 
 }
-
 
 .comentario {
 
@@ -216,7 +178,6 @@ body {
 
 }
 
-
 .nombre {
 
   font-weight:
@@ -226,7 +187,6 @@ body {
     #555555;
 
 }
-
 
 .categoria {
 
@@ -241,11 +201,6 @@ body {
 
 }
 
-
-/* =========================================
-   ERROR
-========================================= */
-
 .error {
 
   text-align:
@@ -259,22 +214,9 @@ body {
 
 }
 
-
-/* =========================================
-   MÓVIL
-========================================= */
-
 @media (
   max-width: 600px
 ) {
-
-  .contenedor {
-
-    padding:
-      8px;
-
-  }
-
 
   .titulo {
 
@@ -283,46 +225,10 @@ body {
 
   }
 
-
-  .estrellas-general {
-
-    font-size:
-      22px;
-
-  }
-
-
-  .media {
-
-    font-size:
-      20px;
-
-  }
-
-
   .grid {
 
     grid-template-columns:
       1fr;
-
-    gap:
-      14px;
-
-  }
-
-
-  .testimonio {
-
-    padding:
-      18px;
-
-  }
-
-
-  .comentario {
-
-    font-size:
-      15px;
 
   }
 
@@ -338,10 +244,6 @@ body {
 
 <div class="contenedor">
 
-
-  <!-- =====================================
-       CABECERA
-  ====================================== -->
 
   <div class="cabecera">
 
@@ -363,12 +265,13 @@ body {
     </div>
 
 
-    <div class="media">
+    <div
+      class="media"
+      id="media"
+    >
 
-      <strong id="media">
-
+      <strong>
         0.0/5
-
       </strong>
 
     </div>
@@ -377,11 +280,9 @@ body {
     <div class="numero">
 
       Basado en
-
       <span id="numero">
         0
       </span>
-
       valoraciones
 
     </div>
@@ -389,10 +290,6 @@ body {
 
   </div>
 
-
-  <!-- =====================================
-       RESEÑAS
-  ====================================== -->
 
   <div
     class="grid"
@@ -414,113 +311,192 @@ body {
 
 <script>
 
-/* =========================================
-   APPS SCRIPT
-========================================= */
 
-/*
- * NUEVA IMPLEMENTACIÓN PARA GITHUB
- */
+/*************************************************
+ * URL DE LA NUEVA IMPLEMENTACIÓN
+ *************************************************/
 
-const APPS_SCRIPT =
-"https://script.google.com/macros/s/AKfycbws4fDg8WdoySnNBpMmhAqECnEnuBr3pubAmIYr7uhqR_HrqvAPETF2gB_fkgYos_8h6g/exec";
+const APPS_SCRIPT_URL =
+  "https://script.google.com/macros/s/AKfycbzd6r3TExpYvR1uesPRAbCgWlvUfEtuq8OLtQtXvVwfY058W-vbVhmHmMXhgoj43PcPnw/exec";
 
 
-/* =========================================
-   CATEGORÍA
-========================================= */
+
+/*************************************************
+ * OBTENER CATEGORÍA DESDE LA URL
+ *************************************************/
 
 const parametros =
-new URLSearchParams(
-  window.location.search
-);
+  new URLSearchParams(
+    window.location.search
+  );
 
 
 const categoriaSolicitada =
-parametros.get("categoria") || "todas";
+  parametros.get("categoria") ||
+  "todas";
 
 
-/* =========================================
-   CALLBACK JSONP
-========================================= */
 
-/*
- * IMPORTANTE:
- *
- * Utilizamos exactamente el mismo nombre
- * que devuelve Apps Script:
- *
- * window.reseñasCallback(...)
- *
- */
+/*************************************************
+ * ESCAPAR HTML
+ *************************************************/
 
-window.reseñasCallback =
-function(datos) {
+function escapar(texto) {
 
+  const div =
+    document.createElement("div");
 
-  console.log(
-    "Datos recibidos de Apps Script:",
-    datos
-  );
+  div.textContent =
+    texto == null
+      ? ""
+      : String(texto);
 
-
-  if (
-    !datos ||
-    datos.error
-  ) {
-
-    console.error(
-      "Apps Script devolvió un error:",
-      datos
-    );
-
-    mostrarError();
-
-    return;
-
-  }
-
-
-  const resenas =
-    Array.isArray(
-      datos.resenas
-    )
-      ? datos.resenas
-      : [];
-
-
-  mostrarResenas(
-    resenas
-  );
-
-};
-
-
-/* =========================================
-   MOSTRAR ERROR
-========================================= */
-
-function mostrarError() {
-
-  document.getElementById(
-    "resenas"
-  ).innerHTML = `
-
-    <div class="error">
-
-      No se han podido cargar
-      las reseñas.
-
-    </div>
-
-  `;
+  return div.innerHTML;
 
 }
 
 
-/* =========================================
-   MOSTRAR RESEÑAS
-========================================= */
+
+/*************************************************
+ * CARGAR RESEÑAS
+ *************************************************/
+
+async function cargarResenas() {
+
+  const contenedor =
+    document.getElementById(
+      "resenas"
+    );
+
+
+  try {
+
+
+    /*
+     * Construimos la URL.
+     */
+
+    let url =
+      APPS_SCRIPT_URL +
+      "?datos=1";
+
+
+    /*
+     * Si hay categoría,
+     * la enviamos a Apps Script.
+     */
+
+    if (
+      categoriaSolicitada !== "todas"
+    ) {
+
+      url +=
+        "&categoria=" +
+        encodeURIComponent(
+          categoriaSolicitada
+        );
+
+    }
+
+
+    /*
+     * Pedimos los datos.
+     */
+
+    const respuesta =
+      await fetch(
+        url,
+        {
+          method:
+            "GET",
+
+          cache:
+            "no-store"
+        }
+      );
+
+
+    if (
+      !respuesta.ok
+    ) {
+
+      throw new Error(
+        "HTTP " +
+        respuesta.status
+      );
+
+    }
+
+
+    /*
+     * Convertimos la respuesta
+     * en JSON.
+     */
+
+    const datos =
+      await respuesta.json();
+
+
+    console.log(
+      "Datos recibidos:",
+      datos
+    );
+
+
+    /*
+     * Comprobamos si Apps Script
+     * ha devuelto un error.
+     */
+
+    if (
+      datos.error
+    ) {
+
+      throw new Error(
+        datos.error
+      );
+
+    }
+
+
+    /*
+     * Mostramos las reseñas.
+     */
+
+    mostrarResenas(
+      datos.resenas || []
+    );
+
+
+  }
+  catch (error) {
+
+
+    console.error(
+      "Error cargando reseñas:",
+      error
+    );
+
+
+    contenedor.innerHTML = `
+
+      <div class="error">
+
+        No se han podido cargar las reseñas.
+
+      </div>
+
+    `;
+
+  }
+
+}
+
+
+
+/*************************************************
+ * MOSTRAR RESEÑAS
+ *************************************************/
 
 function mostrarResenas(
   resenas
@@ -533,90 +509,58 @@ function mostrarResenas(
     );
 
 
-  contenedor.innerHTML =
-    "";
-
-
-  /* ---------------------------------------
-     FILTRAR CATEGORÍA
-  --------------------------------------- */
-
-  let resenasFiltradas =
-    resenas;
-
-
-  if (
-    categoriaSolicitada !==
-    "todas"
-  ) {
-
-    resenasFiltradas =
-      resenas.filter(
-        function(resena) {
-
-          return (
-            String(
-              resena.categoria || ""
-            ).trim()
-            ===
-            categoriaSolicitada
-          );
-
-        }
-      );
-
-  }
-
-
-  /* ---------------------------------------
-     TOTAL
-  --------------------------------------- */
+  /*
+   * Número de reseñas.
+   */
 
   const total =
-    resenasFiltradas.length;
+    resenas.length;
 
 
-  /* ---------------------------------------
-     MEDIA
-  --------------------------------------- */
+  /*
+   * Calcular media.
+   */
 
   let suma =
     0;
 
 
-  resenasFiltradas.forEach(
+  resenas.forEach(
     function(resena) {
 
       suma +=
         Number(
           resena.valoracion
-        );
+        ) || 0;
 
     }
   );
 
 
-  let media =
-    "0.0";
-
-
-  if (
+  const media =
     total > 0
-  ) {
+      ? (
+          suma / total
+        ).toFixed(1)
+      : "0.0";
 
-    media =
-      (
-        suma / total
-      ).toFixed(1);
 
-  }
-
+  /*
+   * Actualizar media.
+   */
 
   document.getElementById(
     "media"
-  ).textContent =
-    media + "/5";
+  ).innerHTML =
 
+    "<strong>" +
+    escapar(media) +
+    "/5</strong>";
+
+
+  /*
+   * Actualizar número.
+   */
 
   document.getElementById(
     "numero"
@@ -624,9 +568,9 @@ function mostrarResenas(
     total;
 
 
-  /* ---------------------------------------
-     SIN RESEÑAS
-  --------------------------------------- */
+  /*
+   * Si no hay reseñas.
+   */
 
   if (
     total === 0
@@ -648,18 +592,26 @@ function mostrarResenas(
   }
 
 
-  /* ---------------------------------------
-     CREAR RESEÑAS
-  --------------------------------------- */
+  /*
+   * Limpiar contenedor.
+   */
 
-  resenasFiltradas.forEach(
+  contenedor.innerHTML =
+    "";
+
+
+  /*
+   * Crear cada reseña.
+   */
+
+  resenas.forEach(
     function(resena) {
 
 
       const valoracion =
         Number(
           resena.valoracion
-        );
+        ) || 0;
 
 
       let estrellas =
@@ -673,6 +625,7 @@ function mostrarResenas(
       ) {
 
         estrellas +=
+
           i <= valoracion
             ? "⭐"
             : "☆";
@@ -683,6 +636,11 @@ function mostrarResenas(
       let categoriaHTML =
         "";
 
+
+      /*
+       * En la página general
+       * mostramos la categoría.
+       */
 
       if (
         categoriaSolicitada ===
@@ -719,8 +677,7 @@ function mostrarResenas(
           <div class="comentario">
 
             "${escapar(
-              resena.experiencia ||
-              ""
+              resena.experiencia
             )}"
 
           </div>
@@ -748,126 +705,10 @@ function mostrarResenas(
 }
 
 
-/* =========================================
-   ESCAPAR HTML
-========================================= */
 
-function escapar(texto) {
-
-  const div =
-    document.createElement(
-      "div"
-    );
-
-  div.textContent =
-    texto;
-
-  return div.innerHTML;
-
-}
-
-
-/* =========================================
-   CARGAR RESEÑAS
-========================================= */
-
-function cargarResenas() {
-
-
-  /*
-   * Creamos un elemento SCRIPT.
-   *
-   * Esto permite utilizar JSONP.
-   *
-   * No utilizamos fetch().
-   */
-
-  const script =
-    document.createElement(
-      "script"
-    );
-
-
-  /* ---------------------------------------
-     URL
-  --------------------------------------- */
-
-  let url =
-    APPS_SCRIPT +
-    "?datos=1";
-
-
-  /* ---------------------------------------
-     CATEGORÍA
-  --------------------------------------- */
-
-  if (
-    categoriaSolicitada !==
-    "todas"
-  ) {
-
-    url +=
-      "&categoria=" +
-      encodeURIComponent(
-        categoriaSolicitada
-      );
-
-  }
-
-
-  /* ---------------------------------------
-     EVITAR CACHÉ
-  --------------------------------------- */
-
-  url +=
-    "&t=" +
-    Date.now();
-
-
-  /* ---------------------------------------
-     ASIGNAR URL
-  --------------------------------------- */
-
-  script.src =
-    url;
-
-
-  script.async =
-    true;
-
-
-  /* ---------------------------------------
-     ERROR
-  --------------------------------------- */
-
-  script.onerror =
-    function() {
-
-      console.error(
-        "No se pudo conectar con Apps Script."
-      );
-
-      mostrarError();
-
-    };
-
-
-  /* ---------------------------------------
-     INSERTAR SCRIPT
-  --------------------------------------- */
-
-  document
-    .body
-    .appendChild(
-      script
-    );
-
-}
-
-
-/* =========================================
-   INICIAR
-========================================= */
+/*************************************************
+ * INICIAR
+ *************************************************/
 
 cargarResenas();
 
