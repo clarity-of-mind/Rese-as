@@ -339,7 +339,9 @@ body {
 <div class="contenedor">
 
 
-  <!-- CABECERA -->
+  <!-- =====================================
+       CABECERA
+  ====================================== -->
 
   <div class="cabecera">
 
@@ -388,7 +390,9 @@ body {
   </div>
 
 
-  <!-- RESEÑAS -->
+  <!-- =====================================
+       RESEÑAS
+  ====================================== -->
 
   <div
     class="grid"
@@ -410,15 +414,12 @@ body {
 
 <script>
 
-
 /* =========================================
    APPS SCRIPT
 ========================================= */
 
 /*
- * ESTA ES LA NUEVA IMPLEMENTACIÓN.
- *
- * NO CAMBIAR.
+ * NUEVA IMPLEMENTACIÓN PARA GITHUB
  */
 
 const APPS_SCRIPT =
@@ -440,25 +441,18 @@ parametros.get("categoria") || "todas";
 
 
 /* =========================================
-   ESCAPAR HTML
-========================================= */
-
-function escapar(texto) {
-
-  const div =
-    document.createElement("div");
-
-  div.textContent =
-    texto;
-
-  return div.innerHTML;
-
-}
-
-
-/* =========================================
    CALLBACK JSONP
 ========================================= */
+
+/*
+ * IMPORTANTE:
+ *
+ * Utilizamos exactamente el mismo nombre
+ * que devuelve Apps Script:
+ *
+ * window.reseñasCallback(...)
+ *
+ */
 
 window.reseñasCallback =
 function(datos) {
@@ -543,9 +537,9 @@ function mostrarResenas(
     "";
 
 
-  /*
-   * Filtrado adicional por categoría.
-   */
+  /* ---------------------------------------
+     FILTRAR CATEGORÍA
+  --------------------------------------- */
 
   let resenasFiltradas =
     resenas;
@@ -574,17 +568,17 @@ function mostrarResenas(
   }
 
 
-  /* =====================================
+  /* ---------------------------------------
      TOTAL
-  ===================================== */
+  --------------------------------------- */
 
   const total =
     resenasFiltradas.length;
 
 
-  /* =====================================
+  /* ---------------------------------------
      MEDIA
-  ===================================== */
+  --------------------------------------- */
 
   let suma =
     0;
@@ -630,9 +624,9 @@ function mostrarResenas(
     total;
 
 
-  /* =====================================
+  /* ---------------------------------------
      SIN RESEÑAS
-  ===================================== */
+  --------------------------------------- */
 
   if (
     total === 0
@@ -654,9 +648,9 @@ function mostrarResenas(
   }
 
 
-  /* =====================================
-     CREAR TARJETAS
-  ===================================== */
+  /* ---------------------------------------
+     CREAR RESEÑAS
+  --------------------------------------- */
 
   resenasFiltradas.forEach(
     function(resena) {
@@ -686,10 +680,6 @@ function mostrarResenas(
       }
 
 
-      /* ---------------------------------
-         CATEGORÍA
-      --------------------------------- */
-
       let categoriaHTML =
         "";
 
@@ -715,14 +705,9 @@ function mostrarResenas(
       }
 
 
-      /* ---------------------------------
-         TARJETA
-      --------------------------------- */
-
       contenedor.innerHTML += `
 
         <div class="testimonio">
-
 
           <div class="estrellas">
 
@@ -753,13 +738,31 @@ function mostrarResenas(
 
           ${categoriaHTML}
 
-
         </div>
 
       `;
 
     }
   );
+
+}
+
+
+/* =========================================
+   ESCAPAR HTML
+========================================= */
+
+function escapar(texto) {
+
+  const div =
+    document.createElement(
+      "div"
+    );
+
+  div.textContent =
+    texto;
+
+  return div.innerHTML;
 
 }
 
@@ -772,20 +775,12 @@ function cargarResenas() {
 
 
   /*
-   * IMPORTANTE:
+   * Creamos un elemento SCRIPT.
    *
-   * NO usamos fetch().
+   * Esto permite utilizar JSONP.
    *
-   * Utilizamos JSONP mediante un
-   * elemento <script>.
-   *
-   * De esta forma GitHub Pages
-   * puede solicitar los datos a
-   * Apps Script sin depender de
-   * CORS ni de las cookies del
-   * visitante.
+   * No utilizamos fetch().
    */
-
 
   const script =
     document.createElement(
@@ -794,7 +789,7 @@ function cargarResenas() {
 
 
   /* ---------------------------------------
-     CREAR URL
+     URL
   --------------------------------------- */
 
   let url =
@@ -830,7 +825,7 @@ function cargarResenas() {
 
 
   /* ---------------------------------------
-     URL DEL SCRIPT
+     ASIGNAR URL
   --------------------------------------- */
 
   script.src =
@@ -852,14 +847,13 @@ function cargarResenas() {
         "No se pudo conectar con Apps Script."
       );
 
-
       mostrarError();
 
     };
 
 
   /* ---------------------------------------
-     INSERTAR
+     INSERTAR SCRIPT
   --------------------------------------- */
 
   document
