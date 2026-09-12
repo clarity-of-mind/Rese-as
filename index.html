@@ -73,6 +73,9 @@ body {
   margin-bottom:
     10px;
 
+  color:
+    #ffffff;
+
 }
 
 .estrellas-general {
@@ -93,6 +96,9 @@ body {
   margin-top:
     6px;
 
+  color:
+    #ffffff;
+
 }
 
 .numero {
@@ -104,7 +110,7 @@ body {
     5px;
 
   color:
-    #777777;
+    rgba(255,255,255,0.78);
 
 }
 
@@ -334,6 +340,35 @@ const parametros =
 const categoriaSolicitada =
   parametros.get("categoria") ||
   "todas";
+
+
+
+/*************************************************
+ * CAMBIAR COLORES SEGÚN LA PÁGINA
+ *************************************************/
+
+if (
+  categoriaSolicitada !== "todas"
+) {
+
+  document.getElementById(
+    "titulo"
+  ).style.color =
+    "#333333";
+
+
+  document.getElementById(
+    "media"
+  ).style.color =
+    "#333333";
+
+
+  document.querySelector(
+    ".numero"
+  ).style.color =
+    "#777777";
+
+}
 
 
 
